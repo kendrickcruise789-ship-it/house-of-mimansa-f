@@ -163,7 +163,9 @@ export default function App() {
   const [page, setPage] = useState<SitePage>(pageFromHash);
 
   // The catalogue the shop is actually selling from
-  const [catalogue, setCatalogue] = useState<Product[]>(() => bundledCatalogue().products);
+  const [catalogue, setCatalogue] = useState<Product[]>(() =>
+    isShopifyConfigured() ? [] : bundledCatalogue().products,
+  );
 
   // Drafts are the owner's workbench. Only published pieces reach a shopper's screen.
   const shopCatalogue = useMemo(() => catalogue.filter((product) => product.status !== 'draft'), [catalogue]);
@@ -316,7 +318,7 @@ export default function App() {
   }, []);
 
   // Read the prices the shop is actually selling at. Falls back to the catalogue baked
-  // into this build when Shopify cannot be reached.
+  // into this build only when no shop is configured at all.
   const applyCatalogue = useCallback((result: { products: Product[] }) => {
     setCatalogue(result.products);
   }, []);
@@ -324,17 +326,18 @@ export default function App() {
   useEffect(() => {
     const controller = new AbortController();
     const load = async () => {
-      // The live catalogue comes from Shopify; if it cannot be reached, the site
-      // still renders from the catalogue baked into this build.
+      // A configured shop is the only source of truth. Bundled demo pieces must never
+      // reach a real storefront, so a failed read shows an empty shop instead.
       if (isShopifyConfigured()) {
         try {
           const products = await loadShopifyProducts();
           if (controller.signal.aborted) return;
           applyCatalogue({ products });
-          return;
         } catch {
           if (controller.signal.aborted) return;
+          applyCatalogue({ products: [] });
         }
+        return;
       }
       const result = await loadCatalogue(controller.signal);
       if (controller.signal.aborted) return;
