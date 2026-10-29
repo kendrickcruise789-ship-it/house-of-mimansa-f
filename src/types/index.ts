@@ -17,6 +17,7 @@ export type ProductCategory =
   | 'Kurtas & Tunics'
   | 'Kaftans'
   | 'Bedsheets'
+  | 'Mats'
   | 'Home'
   | 'Gifts'
   | 'Sale';
@@ -111,4 +112,4 @@ export interface FilterOptions {
   onSaleOnly: boolean;
 }
 
-export type SitePage = 'home' | 'clothing';
+export type SitePage = 'home' | 'clothing' | 'home-living';

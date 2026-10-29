@@ -12,6 +12,7 @@ const ACCORDION_CATEGORIES = [
   'Kurtas & Tunics',
   'Kaftans',
   'Bedsheets',
+  'Mats',
   'Home',
   'Gifts',
   'Sale',
@@ -104,7 +105,7 @@ export const FeaturedBoard: React.FC<FeaturedBoardProps> = ({
             onClick={onGoToClothing}
             className="group self-start sm:self-auto px-6 py-3 border border-[#3C352D] text-[11px] uppercase tracking-[0.2em] font-medium text-[#1E1B18] hover:bg-[#1E1B18] hover:text-[#FDFBF7] transition-colors flex items-center gap-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#C6934B]"
           >
-            <span>Browse Everything</span>
+            <span>Browse Clothing</span>
             <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
           </button>
         </Reveal>

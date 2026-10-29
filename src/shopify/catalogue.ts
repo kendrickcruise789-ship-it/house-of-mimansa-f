@@ -23,6 +23,23 @@ const optionValues = (product: ShopifyProduct, wanted: string[]): string[] => {
   return match ? match.optionValues.map((v) => v.name) : [];
 };
 
+// A product type is what sorts a piece into Clothing or Home & Living. Owners
+// sometimes leave it blank, so fall back to the obvious words in the title.
+const HOME_TITLE_HINTS: [RegExp, string][] = [
+  [/\b(bedsheets?|bed\s?sheets?|bedcovers?|dohars?|duvets?|pillows?|pillowcases?)\b/i, 'Bedsheets'],
+  [/\b(mats?|rugs?|dhurries?|dhurrie)\b/i, 'Mats'],
+  [/\b(cushions?|curtains?|napkins?|table\s?runners?|placemats?|throws?|baskets?|coasters?)\b/i, 'Home'],
+];
+
+const categoryFor = (node: ShopifyProduct): string => {
+  const type = node.productType?.trim();
+  if (type) return type;
+  for (const [pattern, category] of HOME_TITLE_HINTS) {
+    if (pattern.test(node.title)) return category;
+  }
+  return 'Dresses';
+};
+
 function mapProduct(node: ShopifyProduct, index: number): Product {
   const variants = node.variants.edges.map((edge) => edge.node);
 
@@ -65,7 +82,7 @@ function mapProduct(node: ShopifyProduct, index: number): Product {
   return {
     id: node.id,
     title: node.title,
-    category: node.productType?.trim() || 'Dresses',
+    category: categoryFor(node),
     price: Math.round((inrPrice / INR_PER_USD) * 100) / 100,
     originalPrice:
       inrCompareAt > inrPrice ? Math.round((inrCompareAt / INR_PER_USD) * 100) / 100 : undefined,

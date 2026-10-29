@@ -17,6 +17,9 @@ export const CATEGORY_FALLBACK_IMAGES: Record<string, string> = {
     'https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=1000&q=80',
   Bedsheets:
     'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=1000&q=80',
+  // Mats share the home-textiles photograph until the owner uploads their own.
+  Mats:
+    'https://images.unsplash.com/photo-1584100936595-c0654b55a2e2?auto=format&fit=crop&w=1000&q=80',
   Home:
     'https://images.unsplash.com/photo-1584100936595-c0654b55a2e2?auto=format&fit=crop&w=1000&q=80',
   Gifts:

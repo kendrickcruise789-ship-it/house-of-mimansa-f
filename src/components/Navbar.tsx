@@ -64,12 +64,19 @@ export const Navbar: React.FC<NavbarProps> = ({
     { label: 'Kurtas & Tunics', category: 'Kurtas & Tunics' },
     { label: 'Kaftans', category: 'Kaftans' },
     { label: 'Bedsheets', category: 'Bedsheets' },
+    { label: 'Mats', category: 'Mats' },
     { label: categoryLabel('Home'), category: 'Home' },
     { label: 'Gifts', category: 'Gifts' },
     { label: 'Sale', category: 'Sale' },
   ];
 
-  // Category links always land on the Clothing page, whichever page they were clicked from
+  const pageLabels: Record<SitePage, { full: string; short: string }> = {
+    home: { full: 'Home', short: 'Home' },
+    clothing: { full: 'Clothing', short: 'Clothing' },
+    'home-living': { full: 'Home & Living', short: 'Living' },
+  };
+
+  // Each category opens the room it belongs to (clothing or home & living)
   const handleNavClick = (link: { label: string; category?: string; href?: string }) => {
     if (link.category) {
       onSelectCategory(link.category);
@@ -117,49 +124,27 @@ export const Navbar: React.FC<NavbarProps> = ({
           MIMANSA
         </a>
 
-        {/* Primary page switch: Home (the house) vs Clothing (the shop) */}
-        <nav aria-label="Site sections" className="hidden sm:flex items-center gap-1 lg:gap-2 shrink-0">
-          {(['home', 'clothing'] as SitePage[]).map((nextPage) => {
+        {/* Primary page switch: Home (the house), Clothing, Home & Living (the two shop rooms) */}
+        <nav aria-label="Site sections" className="hidden md:flex items-center gap-1 lg:gap-2 shrink-0">
+          {(['home', 'clothing', 'home-living'] as SitePage[]).map((nextPage) => {
             const isActive = page === nextPage;
             return (
               <button
                 key={nextPage}
                 onClick={() => handlePageClick(nextPage)}
                 aria-current={isActive ? 'page' : undefined}
-                className={`relative px-2 sm:px-3 py-2 text-[11px] xl:text-[13px] uppercase tracking-[0.18em] font-medium transition-colors ${
+                className={`relative px-2 sm:px-3 py-2 text-[11px] xl:text-[13px] uppercase tracking-[0.14em] lg:tracking-[0.18em] font-medium whitespace-nowrap transition-colors ${
                   isActive ? 'text-[#1E1B18]' : 'text-[#7A6B5D] hover:text-[#1E1B18]'
                 }`}
               >
-                {nextPage === 'home' ? 'Home' : 'Clothing'}
+                <span className="hidden lg:inline">{pageLabels[nextPage].full}</span>
+                <span className="lg:hidden">{pageLabels[nextPage].short}</span>
                 <span
                   aria-hidden="true"
                   className={`absolute left-2 right-2 bottom-1 h-[2px] bg-[#C6934B] origin-left transition-transform duration-300 ${
                     isActive ? 'scale-x-100' : 'scale-x-0'
                   }`}
                 />
-              </button>
-            );
-          })}
-        </nav>
-
-        {/* Zone 2: Category links — scrollable so they can never push the bag button off screen */}
-        <nav className="hidden xl:flex items-center gap-6 min-w-0 flex-1 overflow-x-auto no-scrollbar text-[12px] tracking-wider uppercase font-medium text-[#5C5349]">
-          {navLinks.map((link) => {
-            const isActive = link.category && activeCategory === link.category;
-            const isSale = link.category === 'Sale';
-            return (
-              <button
-                key={link.label}
-                onClick={() => handleNavClick(link)}
-                className={`whitespace-nowrap shrink-0 transition-colors py-1 relative ${
-                  isSale ? 'text-[#A8523C] font-semibold' : ''
-                } ${
-                  isActive
-                    ? 'text-[#1E1B18] font-semibold after:absolute after:bottom-0 after:left-0 after:w-full after:h-px after:bg-[#1E1B18]'
-                    : 'hover:text-[#1E1B18]'
-                }`}
-              >
-                {link.label}
               </button>
             );
           })}
@@ -266,21 +251,21 @@ export const Navbar: React.FC<NavbarProps> = ({
       {/* Mobile Drawer Navigation */}
       {mobileMenuOpen && (
         <div className="xl:hidden border-t border-[#EDE6DC] bg-[#FDFBF7] px-6 py-6 space-y-5 animate-in slide-in-from-top duration-200">
-          <div className="grid grid-cols-2 gap-2">
-            {(['home', 'clothing'] as SitePage[]).map((nextPage) => {
+          <div className="grid grid-cols-3 gap-2">
+            {(['home', 'clothing', 'home-living'] as SitePage[]).map((nextPage) => {
               const isActive = page === nextPage;
               return (
                 <button
                   key={nextPage}
                   onClick={() => handlePageClick(nextPage)}
                   aria-current={isActive ? 'page' : undefined}
-                  className={`py-3 text-[11px] uppercase tracking-[0.2em] font-medium border transition-colors ${
+                  className={`px-1 py-3 text-center text-[10px] sm:text-[11px] uppercase tracking-[0.08em] sm:tracking-[0.2em] leading-tight font-medium border transition-colors ${
                     isActive
                       ? 'border-[#1E1B18] bg-[#1E1B18] text-[#FDFBF7]'
                       : 'border-[#D5C9B9] text-[#5C5349] hover:border-[#1E1B18] hover:text-[#1E1B18]'
                   }`}
                 >
-                  {nextPage === 'home' ? 'Home' : 'Clothing'}
+                  {pageLabels[nextPage].full}
                 </button>
               );
             })}
@@ -300,7 +285,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             ))}
           </div>
           <div className="pt-2 flex items-center justify-between text-xs text-[#7A6B5D]">
-            <span>Handcrafted Apparel & Home</span>
+            <span>Clothing &amp; Home &amp; Living</span>
             <button
               onClick={() => {
                 setMobileMenuOpen(false);

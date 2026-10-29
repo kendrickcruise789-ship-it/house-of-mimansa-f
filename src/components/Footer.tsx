@@ -81,7 +81,7 @@ export const Footer: React.FC<FooterProps> = ({
           {/* Col 1 */}
           <div className="space-y-3">
             <p className="text-[11px] uppercase tracking-[0.2em] font-semibold text-[#E8DDD1]">
-              Women's Apparel
+              Clothing
             </p>
             <ul className="space-y-2 text-[#A89C8F]">
               <li>
@@ -110,12 +110,17 @@ export const Footer: React.FC<FooterProps> = ({
           {/* Col 2 */}
           <div className="space-y-3">
             <p className="text-[11px] uppercase tracking-[0.2em] font-semibold text-[#E8DDD1]">
-              Home & Gifting
+              Home &amp; Living
             </p>
             <ul className="space-y-2 text-[#A89C8F]">
               <li>
                 <button onClick={() => onSelectCategory('Bedsheets')} className="hover:text-white transition-colors">
                   Pure Percale Bedsheets
+                </button>
+              </li>
+              <li>
+                <button onClick={() => onSelectCategory('Mats')} className="hover:text-white transition-colors">
+                  Hand-Blocked Floor Mats
                 </button>
               </li>
               <li>

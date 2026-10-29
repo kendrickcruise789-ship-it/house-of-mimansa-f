@@ -15,6 +15,7 @@ import { ArrowRight, MapPin, Phone, Undo2 } from 'lucide-react';
 
 interface HomePageProps {
   onGoToClothing: () => void;
+  onGoToHomeLiving: () => void;
   onSelectCategory: (category: string) => void;
   products: Product[];
 }
@@ -26,12 +27,16 @@ const FACTS = [
   { to: 0, suffix: '', label: 'Polyester in the catalogue' },
 ];
 
-const ROOMS = [
+const CLOTHING_ROOMS = [
   { category: 'Dresses', note: 'Tiered maxis & day dresses' },
   { category: 'Co-ords', note: 'Matching top-and-trouser sets' },
   { category: 'Kurtas & Tunics', note: 'Anarkalis & handloom tunics' },
   { category: 'Kaftans', note: 'Botanical mulmul kaftans' },
+];
+
+const HOME_ROOMS = [
   { category: 'Bedsheets', note: '300TC percale bedding' },
+  { category: 'Mats', note: 'Block-printed floor mats' },
   { category: 'Home', note: 'Cushions & table linen' },
 ];
 
@@ -42,6 +47,7 @@ const scrollToCraft = () => {
 
 export const HomePage: React.FC<HomePageProps> = ({
   onGoToClothing,
+  onGoToHomeLiving,
   onSelectCategory,
   products,
 }) => {
@@ -157,42 +163,86 @@ export const HomePage: React.FC<HomePageProps> = ({
         </div>
       </section>
 
-      {/* Shop by room — jumps straight into the Clothing page */}
+      {/* Two rooms — Clothing and Home & Living */}
       <section className="py-16 lg:py-20 bg-[#FDFBF7]">
         <div className="max-w-7xl mx-auto px-6">
-          <Reveal className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
-            <div className="space-y-2">
-              <p className="text-xs uppercase tracking-[0.25em] text-[#7A6B5D] font-medium">
-                Continue To The Clothing Room
-              </p>
-              <h2 className="font-serif text-2xl sm:text-3xl text-[#1E1B18] tracking-tight">
-                Pick A Shelf And Browse
-              </h2>
-            </div>
-            <button
-              onClick={onGoToClothing}
-              className="group self-start sm:self-auto px-6 py-3 border border-[#3C352D] text-[11px] uppercase tracking-[0.2em] font-medium text-[#1E1B18] hover:bg-[#1E1B18] hover:text-[#FDFBF7] transition-colors flex items-center gap-2"
-            >
-              <span>View All Pieces</span>
-              <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
-            </button>
+          <Reveal className="mb-8 space-y-2">
+            <p className="text-xs uppercase tracking-[0.25em] text-[#7A6B5D] font-medium">
+              Two Rooms · One Printing Table
+            </p>
+            <h2 className="font-serif text-2xl sm:text-3xl text-[#1E1B18] tracking-tight">
+              Pick A Shelf And Browse
+            </h2>
           </Reveal>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {ROOMS.map((room, i) => (
-              <Reveal key={room.category} variant="pop" delay={i * 90}>
+          <div className="space-y-12">
+            {/* Room one: wearable cloth */}
+            <div className="space-y-4">
+              <Reveal className="flex items-end justify-between gap-4 border-b border-[#EDE6DC] pb-3">
+                <div>
+                  <p className="text-[10px] uppercase tracking-[0.25em] text-[#A8523C] font-medium">Room One</p>
+                  <h3 className="font-serif text-xl sm:text-2xl text-[#1E1B18]">Clothing</h3>
+                </div>
                 <button
-                  onClick={() => onSelectCategory(room.category)}
-                  className="w-full h-full text-left group border border-[#EDE6DC] bg-white p-6 flex items-center justify-between gap-4 hover:border-[#1E1B18] hover:shadow-md transition-all duration-300"
+                  onClick={onGoToClothing}
+                  className="group text-[11px] uppercase tracking-[0.2em] font-medium text-[#1E1B18] hover:text-[#A8523C] transition-colors flex items-center gap-1.5 shrink-0"
                 >
-                  <span className="space-y-1">
-                    <span className="block font-serif text-xl text-[#1E1B18]">{categoryLabel(room.category)}</span>
-                    <span className="block text-[11px] uppercase tracking-wider text-[#7A6B5D]">{room.note}</span>
-                  </span>
-                  <ArrowRight className="w-4 h-4 text-[#C6934B] shrink-0 transition-transform duration-300 group-hover:translate-x-1.5" />
+                  <span>View Clothing</span>
+                  <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
                 </button>
               </Reveal>
-            ))}
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                {CLOTHING_ROOMS.map((room, i) => (
+                  <Reveal key={room.category} variant="pop" delay={i * 90}>
+                    <button
+                      onClick={() => onSelectCategory(room.category)}
+                      className="w-full h-full text-left group border border-[#EDE6DC] bg-white p-6 flex items-center justify-between gap-4 hover:border-[#1E1B18] hover:shadow-md transition-all duration-300"
+                    >
+                      <span className="space-y-1">
+                        <span className="block font-serif text-xl text-[#1E1B18]">{categoryLabel(room.category)}</span>
+                        <span className="block text-[11px] uppercase tracking-wider text-[#7A6B5D]">{room.note}</span>
+                      </span>
+                      <ArrowRight className="w-4 h-4 text-[#C6934B] shrink-0 transition-transform duration-300 group-hover:translate-x-1.5" />
+                    </button>
+                  </Reveal>
+                ))}
+              </div>
+            </div>
+
+            {/* Room two: cloth for the house */}
+            <div className="space-y-4">
+              <Reveal className="flex items-end justify-between gap-4 border-b border-[#EDE6DC] pb-3">
+                <div>
+                  <p className="text-[10px] uppercase tracking-[0.25em] text-[#A8523C] font-medium">Room Two</p>
+                  <h3 className="font-serif text-xl sm:text-2xl text-[#1E1B18]">Home &amp; Living</h3>
+                </div>
+                <button
+                  onClick={onGoToHomeLiving}
+                  className="group text-[11px] uppercase tracking-[0.2em] font-medium text-[#1E1B18] hover:text-[#A8523C] transition-colors flex items-center gap-1.5 shrink-0"
+                >
+                  <span>View Home &amp; Living</span>
+                  <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
+                </button>
+              </Reveal>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {HOME_ROOMS.map((room, i) => (
+                  <Reveal key={room.category} variant="pop" delay={i * 90}>
+                    <button
+                      onClick={() => onSelectCategory(room.category)}
+                      className="w-full h-full text-left group border border-[#EDE6DC] bg-white p-6 flex items-center justify-between gap-4 hover:border-[#1E1B18] hover:shadow-md transition-all duration-300"
+                    >
+                      <span className="space-y-1">
+                        <span className="block font-serif text-xl text-[#1E1B18]">{categoryLabel(room.category)}</span>
+                        <span className="block text-[11px] uppercase tracking-wider text-[#7A6B5D]">{room.note}</span>
+                      </span>
+                      <ArrowRight className="w-4 h-4 text-[#C6934B] shrink-0 transition-transform duration-300 group-hover:translate-x-1.5" />
+                    </button>
+                  </Reveal>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -211,13 +261,22 @@ export const HomePage: React.FC<HomePageProps> = ({
             </h2>
           </Reveal>
           <Reveal variant="pop" delay={260}>
-            <button
-              onClick={onGoToClothing}
-              className="group px-10 py-4 bg-[#FDFBF7] text-[#1E1B18] text-xs uppercase tracking-[0.25em] font-semibold hover:bg-[#C6934B] hover:text-[#1E1B18] transition-colors inline-flex items-center gap-3"
-            >
-              <span>Enter The Clothing Room</span>
-              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1.5" />
-            </button>
+            <div className="flex flex-wrap items-center justify-center gap-3">
+              <button
+                onClick={onGoToClothing}
+                className="group px-8 sm:px-10 py-4 bg-[#FDFBF7] text-[#1E1B18] text-xs uppercase tracking-[0.2em] sm:tracking-[0.25em] font-semibold hover:bg-[#C6934B] transition-colors inline-flex items-center gap-3"
+              >
+                <span>Enter The Clothing Room</span>
+                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1.5" />
+              </button>
+              <button
+                onClick={onGoToHomeLiving}
+                className="group px-8 sm:px-10 py-4 border border-[#FDFBF7]/60 text-[#FDFBF7] text-xs uppercase tracking-[0.2em] sm:tracking-[0.25em] font-semibold hover:border-[#C6934B] hover:text-[#C6934B] transition-colors inline-flex items-center gap-3"
+              >
+                <span>Shop Home &amp; Living</span>
+                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1.5" />
+              </button>
+            </div>
           </Reveal>
         </div>
       </section>

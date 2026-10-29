@@ -46,15 +46,16 @@ export const CATEGORIES: (ProductCategory | 'All Collections')[] = [
   'Kurtas & Tunics',
   'Kaftans',
   'Bedsheets',
+  'Mats',
   'Home',
   'Gifts',
   'Sale',
 ];
 
-// Display-only labels. The stored category value stays 'Home' so filtering,
+// Display-only labels. The stored category values stay as they are so filtering,
 // persisted filters and the category matching keep working.
 const CATEGORY_LABELS: Record<string, string> = {
-  Home: 'Home & Living',
+  Home: 'Home Decor',
   'All Collections': 'All Collections',
 };
 

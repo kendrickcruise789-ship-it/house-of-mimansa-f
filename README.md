@@ -9,7 +9,7 @@ selling directly from a Shopify store through the Storefront API.
 Shopify Admin (products, variants, stock, orders)
         │  Storefront API (public token, read products / create cart)
         ▼
-This site (home, clothing, filters, product detail, bag)
+This site (home, clothing, home & living, filters, product detail, bag)
         │  cart checkoutUrl
         ▼
 Shopify hosted checkout (shipping, discounts, payment, order confirmation)
@@ -41,6 +41,16 @@ server only. To rotate the token, create a new Storefront token in the Shopify D
 replace the value above.
 
 Products must be **published to the Storefront API channel** in Shopify Admin to appear here.
+
+The shop has two rooms, and a product's **type** decides which one it lands in:
+
+| Room           | Product types                                                                |
+| -------------- | ---------------------------------------------------------------------------- |
+| Clothing       | `Dresses`, `Co-ords`, `Kurtas & Tunics`, `Kaftans` (and any other apparel)    |
+| Home & Living  | `Bedsheets`, `Mats`, `Home`, `Gifts`                                         |
+
+If the type is left blank, the site reads the title (bedsheet, mat, rug, cushion, curtain …) and
+files it under Home & Living; anything else defaults to Clothing.
 
 ## Local development
 

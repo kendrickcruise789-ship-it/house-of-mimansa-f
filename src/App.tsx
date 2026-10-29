@@ -1,6 +1,13 @@
 import React, { useState, useMemo, useEffect, useRef, useCallback } from 'react';
 import { Product, CartItem, Currency, ProductColor, UserAccount, FilterOptions, SitePage } from './types';
 import { MAX_PRICE_CEILING, categoryLabel } from './data/products';
+import {
+  SHOP_SECTION_COPY,
+  categoriesForSection,
+  productInSection,
+  sectionOfCategory,
+} from './data/sections';
+import type { ShopSection } from './data/sections';
 import { loadCatalogue, bundledCatalogue, CURRENCY_CODES } from './shop/api';
 import { loadShopifyProducts, variantForSelection } from './shopify/catalogue';
 import { isShopifyConfigured } from './shopify/config';
@@ -153,8 +160,13 @@ function rehydrateCart(lines: CartLine[], catalogue: Product[]): CartItem[] {
   return items;
 }
 
-const pageFromHash = (): SitePage => (window.location.hash === '#clothing' ? 'clothing' : 'home');
-const pageHash = (page: SitePage) => (page === 'clothing' ? '#clothing' : '#home');
+const pageFromHash = (): SitePage => {
+  const hash = window.location.hash.replace(/^#\/?/, '');
+  if (hash === 'clothing' || hash === 'home-living') return hash;
+  return 'home';
+};
+const pageHash = (page: SitePage) =>
+  page === 'home-living' ? '#home-living' : page === 'clothing' ? '#clothing' : '#home';
 
 export default function App() {
   const persisted = useMemo(readPersisted, []);
@@ -185,6 +197,13 @@ export default function App() {
   const shopCategories = useMemo(
     () => ['All Collections', ...categoryOptions(shopCatalogue)],
     [shopCatalogue],
+  );
+
+  // The shop is split into two rooms; each shows only its own shelves plus the Sale rail.
+  const section: ShopSection | null = page === 'home' ? null : page;
+  const sectionCategories = useMemo(
+    () => (section ? categoriesForSection(shopCategories, section) : shopCategories),
+    [section, shopCategories],
   );
 
   // Filters State — the price range follows the shop's own most expensive piece
@@ -269,6 +288,12 @@ export default function App() {
     if (normTarget.includes('bedsheet') && normProduct.includes('bedsheet')) {
       return true;
     }
+    if (
+      (normTarget.includes('mat') || normTarget.includes('rug') || normTarget.includes('dhurrie')) &&
+      (normProduct.includes('mat') || normProduct.includes('rug') || normProduct.includes('dhurrie'))
+    ) {
+      return true;
+    }
     if (normTarget.includes('home') && normProduct.includes('home')) {
       return true;
     }
@@ -279,10 +304,15 @@ export default function App() {
     return false;
   };
 
-  // Sync category changes with filters & clean sub-filters
+  // Sync category changes with filters & clean sub-filters.
+  // A category carries its room with it: apparel opens Clothing, bedding and mats
+  // open Home & Living, and Sale stays in whichever room is already open.
   const handleSelectCategory = (cat: string) => {
+    const targetSection = sectionOfCategory(cat);
+    const nextPage: SitePage = targetSection ?? (page === 'home' ? 'clothing' : page);
+
+    if (nextPage !== page) goToPage(nextPage);
     setActiveCategory(cat);
-    goToPage('clothing');
     setFilters({
       category: cat,
       minPrice: 0,
@@ -303,6 +333,21 @@ export default function App() {
   };
 
   const goToPage = (nextPage: SitePage) => {
+    // A shelf chosen in one room is meaningless in the other, so entering a
+    // different room always starts from the unfiltered shelf.
+    if (nextPage !== page) {
+      setActiveCategory('All Collections');
+      setFilters({
+        category: 'All Collections',
+        minPrice: 0,
+        maxPrice: priceCeiling,
+        fabrics: [],
+        sizes: [],
+        colors: [],
+        inStockOnly: false,
+        onSaleOnly: false,
+      });
+    }
     setPage(nextPage);
     const nextHash = pageHash(nextPage);
     if (window.location.hash !== nextHash) {
@@ -369,7 +414,10 @@ export default function App() {
 
   // Filtered & Sorted Products
   const displayedProducts = useMemo(() => {
-    let list = [...shopCatalogue];
+    // The room decides what can appear at all; every filter below narrows it further.
+    let list = section
+      ? shopCatalogue.filter((p) => productInSection(p, section))
+      : [...shopCatalogue];
 
     // 1. Category Filter: check selected category
     const targetCat = activeCategory !== 'All Collections' ? activeCategory : filters.category;
@@ -430,7 +478,7 @@ export default function App() {
     }
 
     return list;
-  }, [shopCatalogue, activeCategory, filters, sortBy]);
+  }, [shopCatalogue, section, activeCategory, filters, sortBy]);
 
   // Active filters count
   const activeFiltersCount = useMemo(() => {
@@ -608,6 +656,9 @@ export default function App() {
     }
   }, [cartLines, wishlistIds, currency]);
 
+  // Shop page copy follows the room the visitor is standing in.
+  const shopCopy = SHOP_SECTION_COPY[page === 'home-living' ? 'home-living' : 'clothing'];
+
   return (
     <div className="min-h-screen flex flex-col bg-[#FDFBF7] text-[#1E1B18]">
       
@@ -639,11 +690,12 @@ export default function App() {
         /* ============ HOME: the house, its craft, its cloth ============ */
         <HomePage
           onGoToClothing={() => goToPage('clothing')}
+          onGoToHomeLiving={() => goToPage('home-living')}
           onSelectCategory={handleSelectCategory}
           products={shopCatalogue}
         />
       ) : (
-        /* ============ CLOTHING: the shop ============ */
+        /* ============ SHOP: Clothing and Home & Living, one catalogue in two rooms ============ */
         <>
           <MarqueeStrip />
 
@@ -651,19 +703,21 @@ export default function App() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row sm:items-end justify-between gap-5">
               <div className="space-y-2">
                 <p className="text-[11px] uppercase tracking-[0.25em] text-[#7A6B5D] font-medium">
-                  Handblocked In Bagru · Small Batches
+                  {shopCopy.eyebrow}
                 </p>
-                <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl text-[#1E1B18] leading-tight font-normal tracking-tight text-balance">
+                <h1
+                  key={page}
+                  className="font-serif text-3xl sm:text-4xl lg:text-5xl text-[#1E1B18] leading-tight font-normal tracking-tight text-balance"
+                >
                   <AnimatedHeadline
-                    text="The Clothing Room."
+                    text={shopCopy.title}
                     startDelay={0}
                     stepDelay={180}
-                    keyPrefix="clothing"
+                    keyPrefix={`room-${page}`}
                   />
                 </h1>
                 <p className="text-[#5C5349] text-sm leading-relaxed font-light max-w-xl">
-                  Apparel and home linen in five natural fabrics. Filter by cloth, size, colour or price and
-                  add straight to the bag.
+                  {shopCopy.blurb}
                 </p>
               </div>
               <button
@@ -681,10 +735,10 @@ export default function App() {
             </div>
           </section>
 
-          {/* 4. Filter, Category Tabs & Sort */}
+          {/* 4. Filter, Category Tabs & Sort — scoped to this room */}
           <CategoryNav
             activeCategory={activeCategory}
-            categories={shopCategories}
+            categories={sectionCategories}
             onSelectCategory={handleSelectCategory}
             sortBy={sortBy}
             onSortChange={setSortBy}
@@ -705,7 +759,8 @@ export default function App() {
                 </h2>
               </div>
               <p className="text-xs text-[#7A6B5D]">
-                Displaying <strong className="font-semibold text-[#1E1B18]">{displayedProducts.length}</strong> creations on neutral beige studio forms
+                Displaying <strong className="font-semibold text-[#1E1B18]">{displayedProducts.length}</strong>{' '}
+                {shopCopy.countLabel}
               </p>
             </div>
 
@@ -719,9 +774,9 @@ export default function App() {
               </div>
             ) : displayedProducts.length === 0 ? (
               <div className="py-20 text-center space-y-3 bg-[#FAF7F2] border border-[#EDE6DC] p-8">
-                <p className="font-serif text-2xl text-[#1E1B18]">No Silhouettes Match Your Filters</p>
+                <p className="font-serif text-2xl text-[#1E1B18]">{shopCopy.emptyHeading}</p>
                 <p className="text-xs text-[#7A6B5D] max-w-sm mx-auto">
-                  Try resetting your filter parameters or selecting a different collection department.
+                  Try resetting your filter parameters or selecting a different shelf in this room.
                 </p>
                 <button
                   onClick={() => handleSelectCategory('All Collections')}
@@ -768,7 +823,7 @@ export default function App() {
         filters={filters}
         currency={currency}
         priceCeiling={priceCeiling}
-        categories={shopCategories}
+        categories={sectionCategories}
         onClose={() => setIsFilterDrawerOpen(false)}
         onUpdateFilters={(newFilters) => {
           setFilters(newFilters);
