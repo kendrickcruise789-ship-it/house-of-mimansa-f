@@ -1,5 +1,5 @@
 import React from 'react';
-import { Currency, Product } from '../types';
+import { Product } from '../types';
 import { categoryLabel } from '../data/products';
 import { FeaturedBoard } from './home/FeaturedBoard';
 import { HeroSection } from './HeroSection';
@@ -11,14 +11,12 @@ import { ReviewsSection } from './ReviewsSection';
 import { Reveal } from './Reveal';
 import { AnimatedHeadline } from './AnimatedHeadline';
 import { CountUp } from './CountUp';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, MapPin, Phone, Undo2 } from 'lucide-react';
 
 interface HomePageProps {
   onGoToClothing: () => void;
   onSelectCategory: (category: string) => void;
   products: Product[];
-  currency: Currency;
-  onViewProduct: (product: Product) => void;
 }
 
 const FACTS = [
@@ -46,21 +44,23 @@ export const HomePage: React.FC<HomePageProps> = ({
   onGoToClothing,
   onSelectCategory,
   products,
-  currency,
-  onViewProduct,
 }) => {
+  const heroProduct = products.find((p) => p.isNewArrival) ?? products[0];
+
   return (
     <>
-      <HeroSection onShopClick={onGoToClothing} onCraftClick={scrollToCraft} />
+      <HeroSection
+        onShopClick={onGoToClothing}
+        onCraftClick={scrollToCraft}
+        product={heroProduct}
+      />
 
       <MarqueeStrip />
 
       {/* The exhibition: what the shop is pushing right now, from the live catalogue */}
       <FeaturedBoard
         products={products}
-        currency={currency}
         onShopCategory={onSelectCategory}
-        onViewProduct={onViewProduct}
         onGoToClothing={onGoToClothing}
       />
 
@@ -103,6 +103,59 @@ export const HomePage: React.FC<HomePageProps> = ({
       <FabricGuideSection />
 
       <CarePromiseSection />
+
+      {/* Studio, phone and the return window — what a customer asks before ordering */}
+      <section id="studio-contact" className="py-16 lg:py-20 bg-[#FDFBF7] border-b border-[#EDE6DC]">
+        <div className="max-w-7xl mx-auto px-6">
+          <Reveal className="max-w-2xl space-y-3">
+            <p className="text-xs uppercase tracking-[0.25em] text-[#7A6B5D] font-medium">
+              Visit · Call · Return
+            </p>
+            <h2 className="font-serif text-3xl sm:text-4xl text-[#1E1B18] leading-tight tracking-tight text-balance">
+              <AnimatedHeadline text="The studio is open, and returns take seven days." startDelay={0} stepDelay={90} keyPrefix="contact" />
+            </h2>
+          </Reveal>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mt-8">
+            <Reveal variant="pop" delay={0}>
+              <div className="h-full bg-white border border-[#EDE6DC] p-6 space-y-3 hover:border-[#C6934B] transition-colors">
+                <MapPin className="w-5 h-5 text-[#A8523C]" />
+                <h3 className="font-serif text-lg font-medium text-[#1E1B18] leading-snug">The Jaipur Studio</h3>
+                <address className="not-italic text-xs text-[#5C5349] leading-relaxed">
+                  39, Shiv Colony, near Jaipur International Airport,
+                  Jaipur, Rajasthan
+                </address>
+              </div>
+            </Reveal>
+
+            <Reveal variant="pop" delay={120}>
+              <div className="h-full bg-white border border-[#EDE6DC] p-6 space-y-3 hover:border-[#C6934B] transition-colors">
+                <Phone className="w-5 h-5 text-[#A8523C]" />
+                <h3 className="font-serif text-lg font-medium text-[#1E1B18] leading-snug">Call The House</h3>
+                <div className="text-xs text-[#5C5349] leading-relaxed space-y-1">
+                  <a href="tel:+918619841369" className="block hover:text-[#1E1B18] underline-offset-2 hover:underline">
+                    +91 86198 41369
+                  </a>
+                  <a href="tel:+917665976202" className="block hover:text-[#1E1B18] underline-offset-2 hover:underline">
+                    +91 76659 76202
+                  </a>
+                </div>
+              </div>
+            </Reveal>
+
+            <Reveal variant="pop" delay={240}>
+              <div className="h-full bg-[#1E1B18] text-[#F3EFEA] p-6 space-y-3">
+                <Undo2 className="w-5 h-5 text-[#C6934B]" />
+                <h3 className="font-serif text-lg font-medium text-[#FDFBF7] leading-snug">Returns Within 7 Days</h3>
+                <p className="text-xs text-[#B8ACA0] leading-relaxed">
+                  If a piece is not right, call or message us within 7 days of delivery and we will arrange a
+                  return or exchange. Please keep the piece unworn with its tags attached.
+                </p>
+              </div>
+            </Reveal>
+          </div>
+        </div>
+      </section>
 
       {/* Shop by room — jumps straight into the Clothing page */}
       <section className="py-16 lg:py-20 bg-[#FDFBF7]">

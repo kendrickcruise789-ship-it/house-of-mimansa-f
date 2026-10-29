@@ -110,7 +110,7 @@ export const FabricGuideSection: React.FC = () => {
           </Reveal>
 
           {/* Selected fabric detail — key change replays the entry animation */}
-          <div className="lg:col-span-8">
+          <Reveal variant="fade" delay={150} className="lg:col-span-8">
             <div key={activeFabric} className="clotex-fade-up border border-[#EDE6DC] bg-[#FAF7F2] p-6 sm:p-8 space-y-6">
               <div className="flex flex-wrap items-baseline justify-between gap-3 border-b border-[#E0D7CB] pb-5">
                 <h3 className="font-serif text-2xl sm:text-3xl text-[#1E1B18]">{activeFabric}</h3>
@@ -150,7 +150,7 @@ export const FabricGuideSection: React.FC = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </Reveal>
         </div>
       </div>
     </section>

@@ -641,8 +641,6 @@ export default function App() {
           onGoToClothing={() => goToPage('clothing')}
           onSelectCategory={handleSelectCategory}
           products={shopCatalogue}
-          currency={currency}
-          onViewProduct={(product) => setActiveProductModal(product)}
         />
       ) : (
         /* ============ CLOTHING: the shop ============ */

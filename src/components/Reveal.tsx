@@ -4,7 +4,7 @@ interface RevealProps {
   children: React.ReactNode;
   className?: string;
   delay?: number;
-  variant?: 'up' | 'pop' | 'side' | 'fade';
+  variant?: 'up' | 'pop' | 'side' | 'right' | 'fade' | 'wipe';
   once?: boolean;
 }
 
@@ -57,7 +57,17 @@ export const Reveal: React.FC<RevealProps> = ({
   }, [once]);
 
   const variantClass =
-    variant === 'pop' ? 'reveal--pop' : variant === 'side' ? 'reveal--side' : variant === 'fade' ? 'reveal--fade' : '';
+    variant === 'pop'
+      ? 'reveal--pop'
+      : variant === 'side'
+        ? 'reveal--side'
+        : variant === 'right'
+          ? 'reveal--right'
+          : variant === 'fade'
+            ? 'reveal--fade'
+            : variant === 'wipe'
+              ? 'reveal--wipe'
+              : '';
 
   return (
     <div

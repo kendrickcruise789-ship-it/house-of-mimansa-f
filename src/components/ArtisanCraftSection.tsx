@@ -29,7 +29,7 @@ export const ArtisanCraftSection: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-stretch">
           
           {/* Left Column: Image */}
-          <Reveal variant="side" className="lg:col-span-7">
+          <Reveal variant="wipe" delay={80} className="lg:col-span-7">
             <div className="relative aspect-[16/10] lg:h-full overflow-hidden bg-[#EDE6DC] shadow-md">
               <div ref={craftImageRef} className="absolute inset-x-0 -inset-y-[7%]">
                 <SafeImage
@@ -54,7 +54,7 @@ export const ArtisanCraftSection: React.FC = () => {
             <div className="space-y-6">
               
               {/* Pillar 1 */}
-              <Reveal delay={120} className="space-y-2 pb-6 border-b border-[#E0D7CB]">
+              <Reveal variant="right" delay={120} className="space-y-2 pb-6 border-b border-[#E0D7CB]">
                 <div className="flex items-baseline gap-3">
                   <span className="font-serif text-xl text-[#A8523C] font-semibold">01.</span>
                   <h3 className="font-serif text-lg font-medium text-[#1E1B18]">
@@ -67,7 +67,7 @@ export const ArtisanCraftSection: React.FC = () => {
               </Reveal>
 
               {/* Pillar 2 */}
-              <Reveal delay={260} className="space-y-2 pb-6 border-b border-[#E0D7CB]">
+              <Reveal variant="right" delay={260} className="space-y-2 pb-6 border-b border-[#E0D7CB]">
                 <div className="flex items-baseline gap-3">
                   <span className="font-serif text-xl text-[#A8523C] font-semibold">02.</span>
                   <h3 className="font-serif text-lg font-medium text-[#1E1B18]">
@@ -80,7 +80,7 @@ export const ArtisanCraftSection: React.FC = () => {
               </Reveal>
 
               {/* Pillar 3 */}
-              <Reveal delay={400} className="space-y-2">
+              <Reveal variant="right" delay={400} className="space-y-2">
                 <div className="flex items-baseline gap-3">
                   <span className="font-serif text-xl text-[#A8523C] font-semibold">03.</span>
                   <h3 className="font-serif text-lg font-medium text-[#1E1B18]">

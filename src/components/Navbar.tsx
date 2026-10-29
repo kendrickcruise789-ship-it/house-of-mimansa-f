@@ -92,7 +92,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
   return (
     <header className="sticky top-0 z-40 bg-[#FDFBF7]/95 backdrop-blur-md border-b border-[#EDE6DC] transition-all">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between gap-2 sm:gap-4 md:gap-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between gap-2 sm:gap-4 lg:gap-8">
         
         {/* Mobile menu trigger */}
         <div className="flex items-center xl:hidden">
@@ -166,7 +166,7 @@ export const Navbar: React.FC<NavbarProps> = ({
         </nav>
 
         {/* Zone 3: 1 primary action cluster */}
-        <div className="flex items-center gap-1.5 sm:gap-4 shrink-0">
+        <div className="flex items-center gap-1.5 md:gap-4 shrink-0">
           
           {/* User Account / Login */}
           <div className="relative">
@@ -253,11 +253,11 @@ export const Navbar: React.FC<NavbarProps> = ({
           {/* Shopping Bag Button */}
           <button
             onClick={onOpenCart}
-            className="flex items-center gap-1.5 sm:gap-2 pl-2.5 pr-3 sm:pl-3 sm:pr-4 py-2 bg-[#1E1B18] text-[#FDFBF7] text-xs uppercase tracking-widest font-medium hover:bg-[#342F2A] transition-all shrink-0"
+            className="flex items-center gap-1.5 md:gap-2 pl-2.5 pr-3 md:pl-3 md:pr-4 py-2 bg-[#1E1B18] text-[#FDFBF7] text-xs uppercase tracking-widest font-medium hover:bg-[#342F2A] transition-all shrink-0"
             aria-label="View bag"
           >
             <ShoppingBag className="w-4 h-4 text-[#E8DDD1]" />
-            <span className="hidden sm:inline">Bag</span>
+            <span className="hidden md:inline">Bag</span>
             <span className="text-[#E8DDD1]">({cartCount})</span>
           </button>
         </div>

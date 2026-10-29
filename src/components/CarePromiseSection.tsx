@@ -44,8 +44,8 @@ const PROMISES = [
   },
   {
     icon: Undo2,
-    title: '30 unhurried days',
-    body: 'Free returns within 30 days, and a repair desk instead of a bin if a seam gives out later.',
+    title: 'Returns within 7 days',
+    body: 'Tell us within 7 days of delivery and we will arrange a return or exchange on unworn pieces with tags attached.',
   },
 ];
 

@@ -68,6 +68,16 @@
   opacity: 1;
 }
 
+/* Hero photo: endless slow drift. Kept gentle so the garment never
+   crops out of the frame while zooming. */
+@keyframes clotex-hero-kenburns {
+  0%   { transform: scale(1) translate3d(0, 0, 0); }
+  100% { transform: scale(1.045) translate3d(-1%, 0, 0); }
+}
+.clotex-hero-kenburns {
+  animation: clotex-hero-kenburns 18s ease-in-out infinite alternate;
+}
+
 /* Infinite scrolling marquee strip */
 @keyframes clotex-marquee {
   from { transform: translateX(0); }
@@ -105,8 +115,28 @@
   --rv-x: -32px;
   --rv-y: 0;
 }
+.reveal--right {
+  --rv-x: 20px;
+  --rv-y: 0;
+}
 .reveal--fade {
   --rv-y: 0;
+}
+/* Image panels wipe in like a curtain, left to right.
+   The clip-path lives on the child, not the observed wrapper: Chrome's
+   IntersectionObserver counts the target's own clip-path, so clipping the
+   observed element itself would keep isIntersecting at 0 forever. */
+.js-motion .reveal--wipe {
+  opacity: 1;
+  transform: none;
+}
+.js-motion .reveal--wipe > * {
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 0.95s cubic-bezier(0.65, 0.05, 0.36, 1);
+  transition-delay: var(--rv-delay, 0ms);
+}
+.js-motion .reveal--wipe.is-visible > * {
+  clip-path: inset(0 0 0 0);
 }
 
 /* Panel swap used by the fabric guide tabs */
@@ -142,11 +172,27 @@
   .clotex-marquee {
     animation: none;
   }
+  .clotex-hero-kenburns {
+    animation: none;
+  }
   /* Nothing may depend on an observer firing when motion is switched off */
   .js-motion .reveal,
   .js-motion .reveal.is-visible {
     opacity: 1;
     transform: none;
+    transition-duration: 0.001s;
+    transition-delay: 0ms;
+  }
+  .js-motion .reveal--wipe,
+  .js-motion .reveal--wipe.is-visible {
+    opacity: 1;
+    transform: none;
+    transition-duration: 0.001s;
+    transition-delay: 0ms;
+  }
+  .js-motion .reveal--wipe > *,
+  .js-motion .reveal--wipe.is-visible > * {
+    clip-path: none;
     transition-duration: 0.001s;
     transition-delay: 0ms;
   }
