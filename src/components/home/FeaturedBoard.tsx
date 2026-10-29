@@ -159,7 +159,7 @@ export const FeaturedBoard: React.FC<FeaturedBoardProps> = ({
                 >
                   <SafeImage
                     src={c.image}
-                    alt={c.title}
+                    alt={c.title || c.label}
                     category={c.category}
                     fallbackLabel={c.label}
                     className={`h-full w-full object-cover transition-[filter,transform] duration-700 ${
@@ -217,7 +217,7 @@ export const FeaturedBoard: React.FC<FeaturedBoardProps> = ({
               >
                 <SafeImage
                   src={c.image}
-                  alt={c.title}
+                  alt={c.title || c.label}
                   category={c.category}
                   fallbackLabel={c.label}
                   className="h-full w-full object-cover"
