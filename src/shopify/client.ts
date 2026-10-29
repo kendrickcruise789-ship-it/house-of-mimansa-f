@@ -135,6 +135,26 @@ export async function fetchProducts(first = 50): Promise<ShopifyProduct[]> {
   return data.products.edges.map((edge) => edge.node);
 }
 
+const BEST_SELLER_ORDER_QUERY = /* GraphQL */ `
+  query ShopBestSellers($first: Int!) {
+    products(first: $first, sortKey: BEST_SELLING) {
+      edges {
+        node {
+          id
+        }
+      }
+    }
+  }
+`;
+
+/** Product ids in Shopify's best-selling order (most sold first). */
+export async function fetchBestSellerOrder(first = 50): Promise<string[]> {
+  const data = await shopifyFetch<{
+    products: { edges: { node: { id: string } }[] };
+  }>(BEST_SELLER_ORDER_QUERY, { first });
+  return data.products.edges.map((edge) => edge.node.id);
+}
+
 export interface ShopifyCheckoutLine {
   merchandiseId: string;
   quantity: number;

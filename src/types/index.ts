@@ -54,6 +54,8 @@ export interface Product {
   status?: ProductStatus;
   isNewArrival?: boolean;
   isBestSeller?: boolean;
+  /** Position in Shopify's best-selling order; lower means more sold. */
+  bestSellerRank?: number;
   onSale?: boolean;
   /** Shopify variants behind this piece; used to build the hosted checkout. */
   variantRefs?: { id: string; available: boolean; size: string; color: string }[];

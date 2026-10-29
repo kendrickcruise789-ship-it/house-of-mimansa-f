@@ -5,7 +5,7 @@
 // Shopify's hosted checkout page.
 import { Product } from '../types';
 import { ALL_COLORS } from '../data/products';
-import { fetchProducts, ShopifyProduct, ShopifyVariantRef } from './client';
+import { fetchBestSellerOrder, fetchProducts, ShopifyProduct, ShopifyVariantRef } from './client';
 
 // Must mirror CURRENCY_CONFIGS.INR.rate in src/data/products.ts.
 const INR_PER_USD = 84;
@@ -108,8 +108,17 @@ function mapProduct(node: ShopifyProduct, index: number): Product {
 
 /** Live products from Shopify. Returns an empty array when the store has none published. */
 export async function loadShopifyProducts(): Promise<Product[]> {
-  const nodes = await fetchProducts(50);
-  return nodes.map((node, index) => mapProduct(node, index));
+  const [nodes, bestSellerIds] = await Promise.all([
+    fetchProducts(50),
+    // Best-selling order is optional: if the store doesn't expose it the board
+    // falls back to the `bestseller` / `new` tags.
+    fetchBestSellerOrder(50).catch(() => [] as string[]),
+  ]);
+  const bestSellerRank = new Map(bestSellerIds.map((id, index) => [id, index]));
+  return nodes.map((node, index) => ({
+    ...mapProduct(node, index),
+    bestSellerRank: bestSellerRank.get(node.id),
+  }));
 }
 
 /** Resolves the Shopify variant for a chosen size/colour pair. */

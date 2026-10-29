@@ -47,12 +47,23 @@ interface Collection {
   placeholder?: boolean;
 }
 
+// The tile face follows real sales: the best-selling piece in the category wins.
+// Without sales ranking it falls back to a `bestseller` tag, then `new`, then the
+// first piece, so the owner can also curate it by tagging a product.
+function faceOf(items: Product[]): Product {
+  const ranked = items
+    .filter((p) => typeof p.bestSellerRank === 'number')
+    .sort((a, b) => (a.bestSellerRank as number) - (b.bestSellerRank as number));
+  if (ranked.length > 0) return ranked[0];
+  return items.find((p) => p.isBestSeller) ?? items.find((p) => p.isNewArrival) ?? items[0];
+}
+
 function buildCollections(products: Product[]): Collection[] {
   const collections: Collection[] = [];
   for (const category of ACCORDION_CATEGORIES) {
     const items = products.filter((p) => p.category === category);
     if (items.length === 0) continue;
-    const face = items.find((p) => p.isNewArrival) ?? items[0];
+    const face = faceOf(items);
     collections.push({
       category,
       label: categoryLabel(category),

@@ -52,6 +52,14 @@ The shop has two rooms, and a product's **type** decides which one it lands in:
 If the type is left blank, the site reads the title (bedsheet, mat, rug, cushion, curtain …) and
 files it under Home & Living; anything else defaults to Clothing.
 
+### Homepage photos
+
+Every photo on the site is owned in Shopify Admin — replace a product's **featured image** and
+publish to the Storefront API channel, and the site picks it up on the next page load (no deploy).
+The "On The Cutting Table" board shows the best-selling piece of each category by default; if the
+store has no sales ranking for it, the site uses the product tagged `bestseller`, then `new`, then
+the first piece. Tagging a product `bestseller` or `new` in Shopify is the manual override.
+
 ## Local development
 
 ```bash
