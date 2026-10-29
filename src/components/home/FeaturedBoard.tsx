@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import type { Product } from '../../types';
-import { categoryLabel } from '../../data/products';
+import { categoryLabel, IMAGES } from '../../data/products';
 import { resolveImage } from '../../shop/schema';
 import { SafeImage } from '../SafeImage';
 import { Reveal } from '../Reveal';
@@ -18,6 +18,19 @@ const ACCORDION_CATEGORIES = [
   'Sale',
 ];
 
+// Category faces used until the Shopify catalogue has published pieces, so the
+// board still introduces the shelves instead of vanishing from the homepage.
+const PLACEHOLDER_FACES: { category: string; image: string }[] = [
+  { category: 'Dresses', image: IMAGES.mannequinDress },
+  { category: 'Co-ords', image: IMAGES.mannequinCoord },
+  { category: 'Kurtas & Tunics', image: IMAGES.mannequinKurta },
+  { category: 'Kaftans', image: IMAGES.mannequinKaftan },
+  { category: 'Bedsheets', image: IMAGES.bedsheet },
+  { category: 'Home', image: IMAGES.homeCushion },
+  { category: 'Gifts', image: IMAGES.gifts },
+  { category: 'Sale', image: IMAGES.sale },
+];
+
 export interface FeaturedBoardProps {
   products: Product[];
   /** Jumps to the shop filtered to a category. */
@@ -31,6 +44,7 @@ interface Collection {
   count: number;
   image: string;
   title: string;
+  placeholder?: boolean;
 }
 
 function buildCollections(products: Product[]): Collection[] {
@@ -47,7 +61,15 @@ function buildCollections(products: Product[]): Collection[] {
       title: face.title,
     });
   }
-  return collections;
+  if (collections.length > 0) return collections;
+  return PLACEHOLDER_FACES.map(({ category, image }) => ({
+    category,
+    label: categoryLabel(category),
+    count: 0,
+    image,
+    title: '',
+    placeholder: true,
+  }));
 }
 
 /**
@@ -105,7 +127,7 @@ export const FeaturedBoard: React.FC<FeaturedBoardProps> = ({
             onClick={onGoToClothing}
             className="group self-start sm:self-auto px-6 py-3 border border-[#3C352D] text-[11px] uppercase tracking-[0.2em] font-medium text-[#1E1B18] hover:bg-[#1E1B18] hover:text-[#FDFBF7] transition-colors flex items-center gap-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#C6934B]"
           >
-            <span>Browse Clothing</span>
+            <span>Browse Everything</span>
             <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
           </button>
         </Reveal>
@@ -125,7 +147,11 @@ export const FeaturedBoard: React.FC<FeaturedBoardProps> = ({
                   onClick={() => onShopCategory(c.category)}
                   onMouseEnter={() => setActive(i)}
                   onFocus={() => setActive(i)}
-                  aria-label={`View the ${c.label} collection, ${c.count} pieces`}
+                  aria-label={
+                    c.placeholder
+                      ? `Browse the ${c.label} shelf`
+                      : `View the ${c.label} collection, ${c.count} pieces`
+                  }
                   aria-expanded={isActive}
                   className={`clotex-acc-panel group relative overflow-hidden border border-[#EDE6DC] bg-[#EDE6DC] shadow-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#C6934B] ${
                     isActive ? 'flex-[3.4]' : 'flex-[1]'
@@ -162,7 +188,7 @@ export const FeaturedBoard: React.FC<FeaturedBoardProps> = ({
                     <span className="absolute inset-x-0 bottom-0 p-6 text-left">
                       <span className="block clotex-fade-up space-y-1.5">
                         <span className="block text-[10px] uppercase tracking-[0.25em] text-[#E8DDD1]">
-                          {c.count} pieces · {c.title}
+                          {c.placeholder ? 'Hand-blocked in Bagru · New pieces on the loom' : `${c.count} pieces · ${c.title}`}
                         </span>
                         <span className="block font-serif text-2xl lg:text-3xl text-white leading-tight">
                           {c.label}
@@ -199,7 +225,9 @@ export const FeaturedBoard: React.FC<FeaturedBoardProps> = ({
                 <span aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
                 <span className="absolute inset-x-0 bottom-0 p-3 space-y-1">
                   <span className="block font-serif text-base text-white leading-tight">{c.label}</span>
-                  <span className="block text-[9px] uppercase tracking-[0.2em] text-[#E8DDD1]">{c.count} pieces</span>
+                  <span className="block text-[9px] uppercase tracking-[0.2em] text-[#E8DDD1]">
+                    {c.placeholder ? 'New pieces on the loom' : `${c.count} pieces`}
+                  </span>
                 </span>
               </button>
             </Reveal>
