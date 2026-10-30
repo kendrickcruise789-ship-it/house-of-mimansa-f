@@ -126,10 +126,7 @@ export const HomePage: React.FC<HomePageProps> = ({
             <Reveal variant="pop" delay={0}>
               <div className="h-full bg-white border border-[#EDE6DC] p-6 space-y-3 hover:border-[#C6934B] transition-colors">
                 <MapPin className="w-5 h-5 text-[#A8523C]" />
-                <h3 className="flex items-center gap-2 font-serif text-lg font-medium text-[#1E1B18] leading-snug">
-                  <Home className="w-4 h-4 text-[#1E1B18]" strokeWidth={2} aria-hidden="true" />
-                  House of Mimansa
-                </h3>
+                <h3 className="font-serif text-lg font-medium text-[#1E1B18] leading-snug">House of Mimansa</h3>
                 <address className="not-italic text-xs text-[#5C5349] leading-relaxed">
                   39, Shiv Colony, near Jaipur International Airport,
                   Jaipur, Rajasthan
@@ -218,7 +215,10 @@ export const HomePage: React.FC<HomePageProps> = ({
               <Reveal className="flex items-end justify-between gap-4 border-b border-[#EDE6DC] pb-3">
                 <div>
                   <p className="text-[10px] uppercase tracking-[0.25em] text-[#A8523C] font-medium">Room Two</p>
-                  <h3 className="font-serif text-xl sm:text-2xl text-[#1E1B18]">Home &amp; Living</h3>
+                  <h3 className="flex items-start gap-2 font-serif text-xl sm:text-2xl text-[#1E1B18]">
+                    <Home className="w-5 h-5 mt-1 sm:mt-1.5 text-[#1E1B18] shrink-0" strokeWidth={1.75} aria-hidden="true" />
+                    Home &amp; Living
+                  </h3>
                 </div>
                 <button
                   onClick={onGoToHomeLiving}
