@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { SitePage, UserAccount } from '../types';
 import { categoryLabel } from '../data/products';
-import { Search, Heart, ShoppingBag, Menu, X, User, LogOut, Package } from 'lucide-react';
+import { Search, Heart, ShoppingBag, Menu, X, User, LogOut, Package, Home, Shirt, Sofa } from 'lucide-react';
 
 interface NavbarProps {
   cartCount: number;
@@ -76,6 +76,12 @@ export const Navbar: React.FC<NavbarProps> = ({
     'home-living': { full: 'Home & Living', short: 'Living' },
   };
 
+  const pageIcons: Record<SitePage, typeof Home> = {
+    home: Home,
+    clothing: Shirt,
+    'home-living': Sofa,
+  };
+
   // Each category opens the room it belongs to (clothing or home & living)
   const handleNavClick = (link: { label: string; category?: string; href?: string }) => {
     if (link.category) {
@@ -128,15 +134,17 @@ export const Navbar: React.FC<NavbarProps> = ({
         <nav aria-label="Site sections" className="hidden md:flex items-center gap-1 lg:gap-2 shrink-0">
           {(['home', 'clothing', 'home-living'] as SitePage[]).map((nextPage) => {
             const isActive = page === nextPage;
+            const PageIcon = pageIcons[nextPage];
             return (
               <button
                 key={nextPage}
                 onClick={() => handlePageClick(nextPage)}
                 aria-current={isActive ? 'page' : undefined}
-                className={`relative px-2 sm:px-3 py-2 text-[11px] xl:text-[13px] uppercase tracking-[0.14em] lg:tracking-[0.18em] font-medium whitespace-nowrap transition-colors ${
+                className={`relative inline-flex items-center gap-1.5 px-2 md:px-2.5 lg:px-3 py-2 text-[11px] xl:text-[13px] uppercase tracking-[0.14em] lg:tracking-[0.18em] font-medium whitespace-nowrap transition-colors ${
                   isActive ? 'text-[#1E1B18]' : 'text-[#7A6B5D] hover:text-[#1E1B18]'
                 }`}
               >
+                <PageIcon className="hidden lg:block w-3.5 h-3.5 text-[#1E1B18] shrink-0" strokeWidth={1.75} aria-hidden="true" />
                 <span className="hidden lg:inline">{pageLabels[nextPage].full}</span>
                 <span className="lg:hidden">{pageLabels[nextPage].short}</span>
                 <span
@@ -151,7 +159,7 @@ export const Navbar: React.FC<NavbarProps> = ({
         </nav>
 
         {/* Zone 3: 1 primary action cluster */}
-        <div className="flex items-center gap-1.5 md:gap-4 shrink-0">
+        <div className="flex items-center gap-1.5 lg:gap-4 shrink-0">
           
           {/* User Account / Login */}
           <div className="relative">
