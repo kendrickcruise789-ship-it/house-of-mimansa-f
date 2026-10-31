@@ -262,18 +262,24 @@ export const Navbar: React.FC<NavbarProps> = ({
           <div className="grid grid-cols-3 gap-2">
             {(['home', 'clothing', 'home-living'] as SitePage[]).map((nextPage) => {
               const isActive = page === nextPage;
+              const PageIcon = pageIcons[nextPage];
               return (
                 <button
                   key={nextPage}
                   onClick={() => handlePageClick(nextPage)}
                   aria-current={isActive ? 'page' : undefined}
-                  className={`px-1 py-3 text-center text-[10px] sm:text-[11px] uppercase tracking-[0.08em] sm:tracking-[0.2em] leading-tight font-medium border transition-colors ${
+                  className={`flex flex-col items-center justify-center gap-1.5 px-1 py-3 text-center text-[10px] sm:text-[11px] uppercase tracking-[0.08em] sm:tracking-[0.2em] leading-tight font-medium border transition-colors ${
                     isActive
                       ? 'border-[#1E1B18] bg-[#1E1B18] text-[#FDFBF7]'
                       : 'border-[#D5C9B9] text-[#5C5349] hover:border-[#1E1B18] hover:text-[#1E1B18]'
                   }`}
                 >
-                  {pageLabels[nextPage].full}
+                  <PageIcon
+                    className={`w-4 h-4 shrink-0 ${isActive ? 'text-[#FDFBF7]' : 'text-[#1E1B18]'}`}
+                    strokeWidth={1.75}
+                    aria-hidden="true"
+                  />
+                  <span>{pageLabels[nextPage].full}</span>
                 </button>
               );
             })}
