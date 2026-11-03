@@ -41,7 +41,7 @@ export const ArtisanCraftSection: React.FC = () => {
                 />
               </div>
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent flex items-end p-6">
-                <p className="text-xs text-white/90 font-light tracking-wide">
+                <p className="text-sm sm:text-base lg:text-lg text-white font-semibold tracking-wide">
                   Master artisan stamping botanical indigo resist in our Jaipur cooperative workshop.
                 </p>
               </div>
