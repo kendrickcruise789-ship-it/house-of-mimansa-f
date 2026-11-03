@@ -29,14 +29,6 @@ const FABRIC_NOTES: Record<string, FabricNote> = {
     swatch: '#D9C9AE',
     line: 'Chanderi in Madhya Pradesh is woven on pit looms. The translucent grain you see is the hand, not a defect.',
   },
-  'Handloom Khadi Cotton': {
-    weave: 'Hand-spun, hand-woven, uneven by design',
-    weight: 'Mid · around 160 GSM',
-    feel: 'Textured, warm, absorbs dye deeply',
-    best: 'Structured tunics, overshirts, cooler months',
-    swatch: '#CFC2AC',
-    line: 'Slubs and thin stretches are proof of a handloom. Machine-made khadi has none of them.',
-  },
   '300TC Percale Cotton': {
     weave: 'Tightly combed 300 thread-count percale',
     weight: 'Crisp · around 180 GSM',
@@ -67,10 +59,10 @@ export const FabricGuideSection: React.FC = () => {
             Fabric Guide · Read The Weave
           </p>
           <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl text-[#1E1B18] font-normal tracking-tight text-balance">
-            <AnimatedHeadline text="Five Cloths, Four Seasons." startDelay={0} stepDelay={150} keyPrefix="fabric" />
+            <AnimatedHeadline text="Four Cloths, Four Seasons." startDelay={0} stepDelay={150} keyPrefix="fabric" />
           </h2>
           <p className="text-[#5C5349] text-base leading-relaxed font-light">
-            Every House of Mimansa piece names its fabric plainly. Tap through the five weaves we work with and see
+            Every House of Mimansa piece names its fabric plainly. Tap through the four weaves we work with and see
             exactly how each one behaves on the body and in the wash.
           </p>
         </Reveal>

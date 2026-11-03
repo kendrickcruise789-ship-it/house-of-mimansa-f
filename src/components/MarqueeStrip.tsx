@@ -1,7 +1,7 @@
 import React from 'react';
 
 const PHRASES = [
-  'Hand-block printed in Bagru',
+  'Hand-block printed in Jaipur',
   '100% natural mulmul & chanderi',
   'AZO-free botanical dyes',
   'Fair, published artisan wages',
@@ -27,7 +27,7 @@ export const MarqueeStrip: React.FC = () => {
   return (
     <div className="overflow-hidden bg-[#1E1B18] text-[#E8DDD1] py-3.5 border-b border-[#2D2924]">
       <p className="sr-only">
-        House of Mimansa is hand-block printed in Bagru using natural fabrics, botanical dyes and fair artisan wages.
+        House of Mimansa is hand-block printed in Jaipur using natural fabrics, botanical dyes and fair artisan wages.
       </p>
       <div className="clotex-marquee">
         {track(false)}

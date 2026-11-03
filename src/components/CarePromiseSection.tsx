@@ -30,12 +30,12 @@ const PROMISES = [
   {
     icon: Leaf,
     title: 'Natural fibres only',
-    body: 'Mulmul, chanderi, khadi, percale and linen. No polyester blends hiding in a "cotton" label.',
+    body: 'Mulmul, chanderi, percale and linen. No polyester blends hiding in a "cotton" label.',
   },
   {
     icon: Scale,
     title: 'Published artisan wages',
-    body: 'Printers, carvers and tailors are paid above the Bagru cooperative floor rate, and we print the numbers each season.',
+    body: 'Printers, carvers and tailors are paid above the Jaipur cooperative floor rate, and we print the numbers each season.',
   },
   {
     icon: PackageOpen,

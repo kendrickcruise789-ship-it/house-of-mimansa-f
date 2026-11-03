@@ -199,7 +199,7 @@ export const FeaturedBoard: React.FC<FeaturedBoardProps> = ({
                     <span className="absolute inset-x-0 bottom-0 p-6 text-left">
                       <span className="block clotex-fade-up space-y-1.5">
                         <span className="block text-[10px] uppercase tracking-[0.25em] text-[#E8DDD1]">
-                          {c.placeholder ? 'Hand-blocked in Bagru · New pieces on the loom' : `${c.count} pieces · ${c.title}`}
+                          {c.placeholder ? 'Hand-blocked in Jaipur · New pieces on the loom' : `${c.count} pieces · ${c.title}`}
                         </span>
                         <span className="block font-serif text-2xl lg:text-3xl text-white leading-tight">
                           {c.label}

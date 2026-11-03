@@ -35,7 +35,7 @@ export const Footer: React.FC<FooterProps> = ({
               HOUSE OF MIMANSA
             </span>
             <p className="text-xs text-[#B8ACA0] max-w-md font-light leading-relaxed">
-              Mindfully handcrafted women's slow fashion apparel. Designed in timeless silhouettes, printed by master Rajasthani block printers, and shipped worldwide with carbon-neutral courier partners.
+              Mindfully handcrafted women's slow fashion apparel. Designed in timeless silhouettes, printed by master Rajasthani block printers, and shipped across India with carbon-neutral courier partners.
             </p>
           </div>
 

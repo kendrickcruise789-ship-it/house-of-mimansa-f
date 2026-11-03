@@ -23,10 +23,10 @@ export const SHOP_SECTION_COPY: Record<ShopSection, ShopSectionCopy> = {
   clothing: {
     label: 'Clothing',
     shortLabel: 'Clothing',
-    eyebrow: 'Handblocked In Bagru · Cut In Small Batches',
+    eyebrow: 'Handblocked In Jaipur · Cut In Small Batches',
     title: 'The Clothing Room.',
     blurb:
-      'Wearable pieces in five natural fabrics — dresses, co-ords, kurtas and kaftans. Filter by cloth, size, colour or price and add straight to the bag.',
+      'Wearable pieces in four natural fabrics — dresses, co-ords, kurtas and kaftans. Filter by cloth, size, colour or price and add straight to the bag.',
     countLabel: 'pieces on neutral beige studio forms',
     emptyHeading: 'No Silhouettes Match Your Filters',
   },

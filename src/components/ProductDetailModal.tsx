@@ -343,7 +343,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                 </div>
                 <div className="flex items-center gap-2">
                   <RotateCcw className="w-3.5 h-3.5 text-[#7A6B5D]" />
-                  <span>14-Day Easy Returns</span>
+                  <span>7-Day Easy Returns</span>
                 </div>
               </div>
 

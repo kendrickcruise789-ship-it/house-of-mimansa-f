@@ -15,17 +15,17 @@ export const ReviewsSection: React.FC = () => {
       date: 'Purchased March 2026',
     },
     {
-      name: 'Elena Rostova',
-      location: 'London, UK',
+      name: 'Priya Malhotra',
+      location: 'New Delhi, India',
       silhouette: 'Indigo Bagh Relaxed Co-Ord Set (Size S)',
       comment:
-        'Finding genuine natural indigo apparel with contemporary tailored proportions is rare. The pants are supremely comfortable and the cotton softens with every gentle wash. Delivery to London was faster than expected.',
+        'Finding genuine natural indigo apparel with contemporary tailored proportions is rare. The pants are supremely comfortable and the cotton softens with every gentle wash. Delivery to Delhi was faster than expected.',
       rating: 5,
       date: 'Purchased February 2026',
     },
     {
       name: 'Meera Patel',
-      location: 'San Jose, California',
+      location: 'Bangalore, India',
       silhouette: 'Sienna Pin-Tuck Handloom Tunic (Size L)',
       comment:
         'The mother-of-pearl buttons and micro pin-tucks reflect such thoughtful attention to detail. It feels breathable even during hot summer afternoons. I also appreciate the transparent artisan attribution.',
@@ -44,7 +44,7 @@ export const ReviewsSection: React.FC = () => {
             Verified Experiences
           </p>
           <h2 className="font-serif text-3xl font-normal text-[#1E1B18]">
-            <AnimatedHeadline text="Loved by Women Across the Globe" startDelay={0} stepDelay={110} keyPrefix="reviews" />
+            <AnimatedHeadline text="Loved by Women Across India" startDelay={0} stepDelay={110} keyPrefix="reviews" />
           </h2>
           <div className="flex items-center justify-center gap-2 pt-1 text-xs text-[#5C5349]">
             <div className="flex text-[#C6934B]">

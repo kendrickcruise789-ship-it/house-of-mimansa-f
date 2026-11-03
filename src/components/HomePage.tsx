@@ -21,8 +21,8 @@ interface HomePageProps {
 }
 
 const FACTS = [
-  { to: 18, suffix: '', label: 'Resident artisans in Bagru' },
-  { to: 5, suffix: '', label: 'Natural fabrics, no blends' },
+  { to: 18, suffix: '', label: 'Resident artisans in Jaipur' },
+  { to: 4, suffix: '', label: 'Natural fabrics, no blends' },
   { to: 10, suffix: ' days', label: 'To carve a single block' },
   { to: 0, suffix: '', label: 'Polyester in the catalogue' },
 ];
@@ -152,7 +152,7 @@ export const HomePage: React.FC<HomePageProps> = ({
             <Reveal variant="pop" delay={240}>
               <div className="h-full bg-[#1E1B18] text-[#F3EFEA] p-6 space-y-3">
                 <Undo2 className="w-5 h-5 text-[#C6934B]" />
-                <h3 className="font-serif text-lg font-medium text-[#FDFBF7] leading-snug">Returns Within 7 Days</h3>
+                <h3 className="font-serif text-xl sm:text-2xl font-semibold text-[#FDFBF7] leading-snug">Returns Within 7 Days</h3>
                 <p className="text-xs text-[#B8ACA0] leading-relaxed">
                   If a piece is not right, call or message us within 7 days of delivery and we will arrange a
                   return or exchange. Please keep the piece unworn with its tags attached.
@@ -260,7 +260,7 @@ export const HomePage: React.FC<HomePageProps> = ({
           </Reveal>
           <Reveal delay={120}>
             <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl tracking-tight text-balance mx-auto max-w-3xl">
-              <AnimatedHeadline text="Eighty pieces. Five fabrics. One printing table." startDelay={0} stepDelay={110} keyPrefix="closing" />
+              <AnimatedHeadline text="Eighty pieces. Four fabrics. One printing table." startDelay={0} stepDelay={110} keyPrefix="closing" />
             </h2>
           </Reveal>
           <Reveal variant="pop" delay={260}>

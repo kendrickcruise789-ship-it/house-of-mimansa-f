@@ -25,7 +25,7 @@ export const AnnouncementBar: React.FC<AnnouncementBarProps> = ({
 
         {/* Center: Main announcement */}
         <div className="flex-1 text-center font-medium tracking-widest text-[#E8DDD1]">
-          <span>Worldwide Carbon-Neutral Shipping · Direct from the Jaipur Atelier</span>
+          <span>Carbon-Neutral Shipping Across India · Direct from the Jaipur Atelier</span>
         </div>
 
         {/* Right: Currency switcher & Order Tracking */}
