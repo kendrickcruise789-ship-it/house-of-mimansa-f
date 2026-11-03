@@ -6,8 +6,8 @@ import { CloudSnow, Sun, Layers, Shirt, Leaf, Scale, PackageOpen, Undo2 } from '
 const CARE_STEPS = [
   {
     icon: CloudSnow,
-    title: 'Wash cold, first wash alone',
-    body: '30°C or below, mild liquid detergent, no bleach. Botanical indigo and madder release a little colour in the first two washes — keep them separate.',
+    title: 'Wash cold, wash gently',
+    body: '30°C or below, mild liquid detergent, no bleach. Our botanical indigo and madder settle into richer, deeper tones with every wash — the mark of a truly natural dye.',
   },
   {
     icon: Sun,
