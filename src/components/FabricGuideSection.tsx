@@ -35,7 +35,7 @@ const FABRIC_NOTES: Record<string, FabricNote> = {
     feel: 'Cool, matte, hotel-sheet crispness',
     best: 'Bedsheets, pillow covers, table linen',
     swatch: '#E7E1D6',
-    line: 'Percale is a weave, not a fibre count — one over, one under, combed long-staple cotton.',
+    line: 'Percale is a weave, not a thread count — one over, one under, combed long-staple cotton.',
   },
   'Slub Linen & Cotton': {
     weave: 'Linen-cotton blend with deliberate slub',

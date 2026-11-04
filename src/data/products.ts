@@ -1140,7 +1140,7 @@ export const PRODUCTS: Product[] = [
     stockPerSize: { 'Standard': 8 },
     description: 'Natural jute and cotton coiled storage basket with removable block-printed organic cotton lining bag.',
     fabric: 'Slub Linen & Cotton',
-    craftTechnique: 'Handwoven natural fiber with block print fabric.',
+    craftTechnique: 'Handwoven natural fabric with block print.',
     careInstructions: 'Wipe clean basket; machine wash cloth liner.',
     fitNote: '16 inches diameter, 18 inches high.',
     rating: 4.7,

@@ -6,7 +6,7 @@ const PHRASES = [
   'AZO-free botanical dyes',
   'Fair, published artisan wages',
   'Small batches, no seasonal dumps',
-  'Plastic-free packaging',
+  'Eco-friendly packaging',
 ];
 
 /** Renders the phrase list twice so the 50% translate loops seamlessly. */

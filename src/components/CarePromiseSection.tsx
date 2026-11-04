@@ -29,7 +29,7 @@ const CARE_STEPS = [
 const PROMISES = [
   {
     icon: Leaf,
-    title: 'Natural fibres only',
+    title: 'Natural fabrics only',
     body: 'Mulmul, chanderi, percale and linen. No polyester blends hiding in a "cotton" label.',
   },
   {
@@ -39,7 +39,7 @@ const PROMISES = [
   },
   {
     icon: PackageOpen,
-    title: 'Plastic-free packaging',
+    title: 'Eco-friendly packaging',
     body: 'Recycled kraft boxes, paper tape, compostable mailers. Nothing in the parcel needs a landfill.',
   },
   {
