@@ -20,19 +20,23 @@ export const FeedbackPage: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!name.trim() || !contact.trim() || !message.trim()) {
+    const cleanName = name.trim().slice(0, 80);
+    const cleanContact = contact.trim().slice(0, 120);
+    const cleanOrder = orderNumber.trim().slice(0, 40);
+    const cleanMessage = message.trim().slice(0, 1500);
+    if (!cleanName || !cleanContact || !cleanMessage) {
       setError('Please add your name, a phone number or email, and your feedback.');
       setDraftUrl('');
       return;
     }
     setError('');
     const lines = [
-      `Feedback from ${name.trim()}`,
-      `Contact: ${contact.trim()}`,
-      orderNumber.trim() ? `Order number: ${orderNumber.trim()}` : '',
+      `Feedback from ${cleanName}`,
+      `Contact: ${cleanContact}`,
+      cleanOrder ? `Order number: ${cleanOrder}` : '',
       `About: ${topic}`,
       '',
-      message.trim(),
+      cleanMessage,
     ].filter(Boolean);
     const url = whatsappChatUrl(lines.join('\n'));
     setDraftUrl(url);
@@ -74,6 +78,7 @@ export const FeedbackPage: React.FC = () => {
                   <input
                     type="text"
                     value={name}
+                    maxLength={80}
                     onChange={(e) => setName(e.target.value)}
                     placeholder="Name"
                     autoComplete="name"
@@ -87,6 +92,7 @@ export const FeedbackPage: React.FC = () => {
                   <input
                     type="text"
                     value={contact}
+                    maxLength={120}
                     onChange={(e) => setContact(e.target.value)}
                     placeholder="How we should reply"
                     autoComplete="email"
@@ -100,6 +106,7 @@ export const FeedbackPage: React.FC = () => {
                   <input
                     type="text"
                     value={orderNumber}
+                    maxLength={40}
                     onChange={(e) => setOrderNumber(e.target.value)}
                     placeholder="e.g. HOM-1042"
                     className={fieldClass}
@@ -129,6 +136,7 @@ export const FeedbackPage: React.FC = () => {
                 </span>
                 <textarea
                   value={message}
+                  maxLength={1500}
                   onChange={(e) => setMessage(e.target.value)}
                   rows={6}
                   placeholder="Tell us what happened, and what would have made it right."

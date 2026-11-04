@@ -34,7 +34,9 @@ import { Reveal } from './components/Reveal';
 import { Footer } from './components/Footer';
 
 const STORAGE_KEY = 'clotex_state_v1';
-const USER_KEY = 'clotex_user';
+// v2: the old key held details from a fake sign-in that accepted any password.
+const USER_KEY = 'clotex_guest_v2';
+const LEGACY_USER_KEY = 'clotex_user';
 const MAX_CART_LINES = 60;
 const MAX_QUANTITY_PER_LINE = 99;
 
@@ -193,7 +195,7 @@ export default function App() {
   // Currency State
   const [currency, setCurrency] = useState<Currency>(persisted.currency);
 
-  // Authentication State
+  // Optional guest details saved in this browser (no account server exists)
   const [currentUser, setCurrentUser] = useState<UserAccount | null>(readPersistedUser);
   const [authModalOpen, setAuthModalOpen] = useState(false);
 
@@ -402,8 +404,10 @@ export default function App() {
   }, [applyCatalogue]);
 
   // Builds before this one stored whole address books; drop those fields on sight.
+  // The pre-v2 key held details entered into a demo sign-in, so purge it entirely.
   useEffect(() => {
     try {
+      localStorage.removeItem(LEGACY_USER_KEY);
       const raw = localStorage.getItem(USER_KEY);
       if (!raw) return;
       const parsed: unknown = JSON.parse(raw);

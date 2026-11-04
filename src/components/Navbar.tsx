@@ -169,7 +169,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               <div ref={userMenuRef}>
                 <button
                   onClick={() => setUserDropdownOpen(!userDropdownOpen)}
-                  aria-label={`Account menu for ${currentUser.fullName}`}
+                  aria-label={`Your details for ${currentUser.fullName}`}
                   aria-expanded={userDropdownOpen}
                   className="flex items-center gap-1.5 p-1.5 text-xs text-[#1E1B18] hover:text-[#7A6B5D] transition-colors"
                 >
@@ -205,7 +205,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                       className="w-full px-4 py-2 text-left hover:bg-[#FAF7F2] flex items-center gap-2 text-[#A8523C]"
                     >
                       <LogOut className="w-3.5 h-3.5" />
-                      <span>Sign Out</span>
+                      <span>Forget Details</span>
                     </button>
                   </div>
                 )}
@@ -214,10 +214,10 @@ export const Navbar: React.FC<NavbarProps> = ({
               <button
                 onClick={onOpenAuth}
                 className="p-1.5 sm:p-2 text-[#1E1B18] hover:text-[#7A6B5D] transition-colors flex items-center gap-1 text-xs"
-                aria-label="Account login"
+                aria-label="Your details"
               >
                 <User className="w-4 h-4 sm:w-5 sm:h-5" />
-                <span className="hidden xl:inline uppercase tracking-wider text-[11px] font-medium">Login</span>
+                <span className="hidden xl:inline uppercase tracking-wider text-[11px] font-medium">Details</span>
               </button>
             )}
           </div>
@@ -309,7 +309,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               }}
               className="font-medium text-[#1E1B18] underline"
             >
-              {currentUser ? `Hi, ${currentUser.fullName}` : 'Sign In'}
+              {currentUser ? `Hi, ${currentUser.fullName}` : 'Your details'}
             </button>
           </div>
         </div>
