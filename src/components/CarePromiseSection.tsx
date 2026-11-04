@@ -1,7 +1,7 @@
 import React from 'react';
 import { Reveal } from './Reveal';
 import { AnimatedHeadline } from './AnimatedHeadline';
-import { CloudSnow, Sun, Layers, Shirt, Leaf, Scale, PackageOpen, Undo2 } from 'lucide-react';
+import { CloudSnow, Sun, Layers, Shirt, Leaf, Scale, PackageOpen, ShieldCheck } from 'lucide-react';
 
 const CARE_STEPS = [
   {
@@ -43,9 +43,9 @@ const PROMISES = [
     body: 'Recycled kraft boxes, paper tape, compostable mailers. Nothing in the parcel needs a landfill.',
   },
   {
-    icon: Undo2,
-    title: 'Returns within 7 days',
-    body: 'Tell us within 7 days of delivery and we will arrange a return or exchange on unworn pieces with tags attached.',
+    icon: ShieldCheck,
+    title: 'Premium Quality Assurance',
+    body: 'Ensuring high-quality fabrics, vibrant colours, and carefully crafted designs in every product.',
   },
 ];
 
