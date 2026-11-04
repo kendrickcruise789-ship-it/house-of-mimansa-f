@@ -26,6 +26,8 @@ import { ShopifyCheckoutModal } from './components/ShopifyCheckoutModal';
 import { OrderTrackingModal } from './components/OrderTrackingModal';
 import { AuthModal } from './components/AuthModal';
 import { HomePage } from './components/HomePage';
+import { FeedbackPage } from './components/FeedbackPage';
+import { WhatsAppButton } from './components/WhatsAppButton';
 import { MarqueeStrip } from './components/MarqueeStrip';
 import { AnimatedHeadline } from './components/AnimatedHeadline';
 import { Reveal } from './components/Reveal';
@@ -162,11 +164,17 @@ function rehydrateCart(lines: CartLine[], catalogue: Product[]): CartItem[] {
 
 const pageFromHash = (): SitePage => {
   const hash = window.location.hash.replace(/^#\/?/, '');
-  if (hash === 'clothing' || hash === 'home-living') return hash;
+  if (hash === 'clothing' || hash === 'home-living' || hash === 'feedback') return hash;
   return 'home';
 };
 const pageHash = (page: SitePage) =>
-  page === 'home-living' ? '#home-living' : page === 'clothing' ? '#clothing' : '#home';
+  page === 'home-living'
+    ? '#home-living'
+    : page === 'clothing'
+      ? '#clothing'
+      : page === 'feedback'
+        ? '#feedback'
+        : '#home';
 
 export default function App() {
   const persisted = useMemo(readPersisted, []);
@@ -200,7 +208,8 @@ export default function App() {
   );
 
   // The shop is split into two rooms; each shows only its own shelves plus the Sale rail.
-  const section: ShopSection | null = page === 'home' ? null : page;
+  const section: ShopSection | null =
+    page === 'clothing' || page === 'home-living' ? page : null;
   const sectionCategories = useMemo(
     () => (section ? categoriesForSection(shopCategories, section) : shopCategories),
     [section, shopCategories],
@@ -694,6 +703,9 @@ export default function App() {
           onSelectCategory={handleSelectCategory}
           products={shopCatalogue}
         />
+      ) : page === 'feedback' ? (
+        /* ============ FEEDBACK: a direct line to the Jaipur studio ============ */
+        <FeedbackPage />
       ) : (
         /* ============ SHOP: Clothing and Home & Living, one catalogue in two rooms ============ */
         <>
@@ -813,7 +825,14 @@ export default function App() {
         onSelectCategory={handleSelectCategory}
         onOpenSizeGuide={() => setSizeGuideOpen(true)}
         onOpenTracking={() => setTrackingModalOpen(true)}
+        onOpenFeedback={() => {
+          goToPage('feedback');
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }}
       />
+
+      {/* 9. Direct WhatsApp line to the studio */}
+      <WhatsAppButton />
 
       {/* DRAWERS & MODALS */}
 

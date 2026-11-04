@@ -11,6 +11,7 @@ import { ReviewsSection } from './ReviewsSection';
 import { Reveal } from './Reveal';
 import { AnimatedHeadline } from './AnimatedHeadline';
 import { CountUp } from './CountUp';
+import { WhatsAppIcon, WHATSAPP_NUMBER, whatsappChatUrl } from './WhatsAppButton';
 import { ArrowRight, Home, MapPin, Phone, Undo2 } from 'lucide-react';
 
 interface HomePageProps {
@@ -144,6 +145,15 @@ export const HomePage: React.FC<HomePageProps> = ({
                   </a>
                   <a href="tel:+917665976202" className="block hover:text-[#1E1B18] underline-offset-2 hover:underline">
                     +91 76659 76202
+                  </a>
+                  <a
+                    href={whatsappChatUrl()}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 pt-1 text-[#2F6F4E] font-medium hover:text-[#1E1B18]"
+                  >
+                    <WhatsAppIcon className="w-3.5 h-3.5" />
+                    WhatsApp {WHATSAPP_NUMBER}
                   </a>
                 </div>
               </div>

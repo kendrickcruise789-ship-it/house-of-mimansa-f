@@ -1,16 +1,19 @@
 import React, { useState } from 'react';
 import { ArrowRight, Check, ShieldCheck } from 'lucide-react';
+import { WhatsAppIcon, WHATSAPP_NUMBER, whatsappChatUrl } from './WhatsAppButton';
 
 interface FooterProps {
   onSelectCategory: (category: string) => void;
   onOpenSizeGuide: () => void;
   onOpenTracking: () => void;
+  onOpenFeedback: () => void;
 }
 
 export const Footer: React.FC<FooterProps> = ({
   onSelectCategory,
   onOpenSizeGuide,
   onOpenTracking,
+  onOpenFeedback,
 }) => {
   const [newsletterEmail, setNewsletterEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
@@ -156,6 +159,22 @@ export const Footer: React.FC<FooterProps> = ({
                 <button onClick={onOpenTracking} className="hover:text-white transition-colors">
                   Track Consignment
                 </button>
+              </li>
+              <li>
+                <button onClick={onOpenFeedback} className="hover:text-white transition-colors">
+                  Share Your Feedback
+                </button>
+              </li>
+              <li>
+                <a
+                  href={whatsappChatUrl()}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 hover:text-white transition-colors"
+                >
+                  <WhatsAppIcon className="w-3.5 h-3.5" />
+                  WhatsApp {WHATSAPP_NUMBER}
+                </a>
               </li>
               <li className="text-[#8D8275]">
                 Complimentary Shipping &amp; Returns

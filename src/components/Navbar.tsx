@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { SitePage, UserAccount } from '../types';
 import { categoryLabel } from '../data/products';
-import { Search, Heart, ShoppingBag, Menu, X, User, LogOut, Package, Home, Shirt, Sofa } from 'lucide-react';
+import { Search, Heart, ShoppingBag, Menu, X, User, LogOut, Package, Home, Shirt, Sofa, MessageSquare } from 'lucide-react';
 
 interface NavbarProps {
   cartCount: number;
@@ -74,12 +74,14 @@ export const Navbar: React.FC<NavbarProps> = ({
     home: { full: 'Home', short: 'Home' },
     clothing: { full: 'Clothing', short: 'Clothing' },
     'home-living': { full: 'Home & Living', short: 'Living' },
+    feedback: { full: 'Feedback', short: 'Feedback' },
   };
 
   const pageIcons: Record<SitePage, typeof Home> = {
     home: Home,
     clothing: Shirt,
     'home-living': Sofa,
+    feedback: MessageSquare,
   };
 
   // Each category opens the room it belongs to (clothing or home & living)
