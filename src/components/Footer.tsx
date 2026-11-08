@@ -7,6 +7,7 @@ interface FooterProps {
   onOpenSizeGuide: () => void;
   onOpenTracking: () => void;
   onOpenFeedback: () => void;
+  onOpenTerms: (sectionId?: string) => void;
 }
 
 export const Footer: React.FC<FooterProps> = ({
@@ -14,6 +15,7 @@ export const Footer: React.FC<FooterProps> = ({
   onOpenSizeGuide,
   onOpenTracking,
   onOpenFeedback,
+  onOpenTerms,
 }) => {
   const [newsletterEmail, setNewsletterEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
@@ -206,8 +208,12 @@ export const Footer: React.FC<FooterProps> = ({
         <div className="pt-8 border-t border-[#2D2924] flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#7A6B5D]">
           <p>© {new Date().getFullYear()} House of Mimansa. All rights reserved.</p>
           <div className="flex items-center gap-6">
-            <span className="text-[#8D8275]">Privacy Charter</span>
-            <span className="text-[#8D8275]">Terms of Service</span>
+            <button onClick={() => onOpenTerms('privacy')} className="hover:text-[#E8DDD1] transition-colors">
+              Privacy Charter
+            </button>
+            <button onClick={() => onOpenTerms()} className="hover:text-[#E8DDD1] transition-colors">
+              Terms of Service
+            </button>
             <span className="text-[#8D8275]">Artisan Verification</span>
           </div>
         </div>

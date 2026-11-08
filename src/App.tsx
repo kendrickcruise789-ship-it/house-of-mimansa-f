@@ -27,6 +27,7 @@ import { OrderTrackingModal } from './components/OrderTrackingModal';
 import { AuthModal } from './components/AuthModal';
 import { HomePage } from './components/HomePage';
 import { FeedbackPage } from './components/FeedbackPage';
+import { TermsPage } from './components/TermsPage';
 import { WhatsAppButton } from './components/WhatsAppButton';
 import { MarqueeStrip } from './components/MarqueeStrip';
 import { AnimatedHeadline } from './components/AnimatedHeadline';
@@ -166,7 +167,7 @@ function rehydrateCart(lines: CartLine[], catalogue: Product[]): CartItem[] {
 
 const pageFromHash = (): SitePage => {
   const hash = window.location.hash.replace(/^#\/?/, '');
-  if (hash === 'clothing' || hash === 'home-living' || hash === 'feedback') return hash;
+  if (hash === 'clothing' || hash === 'home-living' || hash === 'feedback' || hash === 'terms') return hash;
   return 'home';
 };
 const pageHash = (page: SitePage) =>
@@ -176,7 +177,9 @@ const pageHash = (page: SitePage) =>
       ? '#clothing'
       : page === 'feedback'
         ? '#feedback'
-        : '#home';
+        : page === 'terms'
+          ? '#terms'
+          : '#home';
 
 export default function App() {
   const persisted = useMemo(readPersisted, []);
@@ -710,6 +713,9 @@ export default function App() {
       ) : page === 'feedback' ? (
         /* ============ FEEDBACK: a direct line to the Jaipur studio ============ */
         <FeedbackPage />
+      ) : page === 'terms' ? (
+        /* ============ TERMS: orders, returns, privacy, the fine print ============ */
+        <TermsPage />
       ) : (
         /* ============ SHOP: Clothing and Home & Living, one catalogue in two rooms ============ */
         <>
@@ -832,6 +838,14 @@ export default function App() {
         onOpenFeedback={() => {
           goToPage('feedback');
           window.scrollTo({ top: 0, behavior: 'smooth' });
+        }}
+        onOpenTerms={(sectionId) => {
+          goToPage('terms');
+          window.setTimeout(() => {
+            const el = sectionId ? document.getElementById(sectionId) : null;
+            if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            else window.scrollTo({ top: 0, behavior: 'smooth' });
+          }, 120);
         }}
       />
 

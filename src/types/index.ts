@@ -114,4 +114,4 @@ export interface FilterOptions {
   onSaleOnly: boolean;
 }
 
-export type SitePage = 'home' | 'clothing' | 'home-living' | 'feedback';
+export type SitePage = 'home' | 'clothing' | 'home-living' | 'feedback' | 'terms';
